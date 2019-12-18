@@ -14,9 +14,6 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  created() {
-    let { menuList } = this;
-  },
   computed: {
     ...mapState(["menuList"])
   }
