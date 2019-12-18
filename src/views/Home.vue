@@ -16,25 +16,37 @@
       <br>
       <span>权限 {{ checkedNames }}</span>
     </div>
+    <div>
+      <h3>自定义指令控制元素的权限</h3>
+      <button>都可看到</button>
+      <button v-roleShow="['Home']">Home</button>
+      <button v-roleShow="['About']">About</button>
+      <button v-roleShow="['About','Info']">About或Info</button>
+      <button v-roleShow="['Info']">Info</button>
+      <button v-roleShow="['Role']">Role</button>
+      <button v-roleShow="['User']">User</button>
+      <button v-roleShow="['Shop']">Shop</button>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapMutations,mapState } from "vuex";
+import roleShow from "@/directive/roles-show";
+import { mapMutations } from "vuex";
 export default {
   name: "home",
+  directives: {
+    roleShow
+  },
   data() {
     return {
       checkedNames: this.$store.state.roles
-      // checkedNames: this.roles
     };
   },
   methods: {
     ...mapMutations(["setRoles"])
   },
-  computed: {
-    ...mapState(['roles'])
-  },
+  computed: {},
   watch: {
     checkedNames: {
       handler(val) {
