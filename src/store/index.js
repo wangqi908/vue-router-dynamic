@@ -10,6 +10,7 @@ const About = () => import(/* webpackChunkName: "about" */ '@/views/About.vue')
 const Info = () => import(/* webpackChunkName: "Info" */ '@/views/info/Info.vue')
 const Role = () => import(/* webpackChunkName: "Role" */ '@/views/info/Role.vue')
 const User = () => import(/* webpackChunkName: "User" */ '@/views/info/User.vue')
+const Shop = () => import(/* webpackChunkName: "Shop" */ '@/views/Shop.vue')
 
 export default new Vuex.Store({
   state: {
@@ -33,7 +34,7 @@ export default new Vuex.Store({
           component: Home,
           meta: {
             name: 'Home',
-            isMenu: true, 
+            isMenu: true,
             title: '首页',
             url: '/'
           },
@@ -52,7 +53,7 @@ export default new Vuex.Store({
             component: About,
             meta: {
               name: 'About',
-              isMenu: true, 
+              isMenu: true,
               title: '相关',
               url: '/about'
             },
@@ -69,7 +70,7 @@ export default new Vuex.Store({
             component: Info,
             meta: {
               name: 'Info',
-              isMenu: true, 
+              isMenu: true,
               hasSubMenu: true,
               title: '信息',
               url: '/info'
@@ -81,9 +82,9 @@ export default new Vuex.Store({
                 component: Role,
                 meta: {
                   name: 'Role',
-                  isMenu: true, 
+                  isMenu: true,
                   title: '角色',
-                  url: '/role'
+                  url: '/info/role'
                 },
               },
               {
@@ -92,21 +93,39 @@ export default new Vuex.Store({
                 component: User,
                 meta: {
                   name: 'User',
-                  isMenu: true, 
+                  isMenu: true,
                   title: '用户',
-                  url: '/user'
+                  url: '/info/user'
                 },
               }
             ]
           }
         ]
       },
-    ]
+      {
+        path: '/shop',
+        component: Layout,
+        children: [
+          {
+            path: '',
+            name: 'Shop',
+            component: Shop,
+            meta: {
+              name: 'Shop',
+              isMenu: true,
+              title: '商店',
+              url: '/shop'
+            },
+          }
+        ]
+      },
+    ],
+    menuList: [],//存放菜单数据
   },
   mutations: {
-  },
-  actions: {
-  },
-  modules: {
+    // 动态设置菜单
+    setMenuList(state, payload = []) {
+      state.menuList = payload
+    }
   }
 })
