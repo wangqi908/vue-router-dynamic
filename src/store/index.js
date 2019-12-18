@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import setDynamicRouter from "@/utils/setDynamicRouter";
+import { resetRouter } from "@/router";
 Vue.use(Vuex)
 
 const ErrPage = () => import(/* webpackChunkName: "ErrPage" */ '@/views/ErrPage.vue')
@@ -121,11 +123,18 @@ export default new Vuex.Store({
       },
     ],
     menuList: [],//存放菜单数据
+    roles: ['Home','About']
   },
   mutations: {
     // 动态设置菜单
     setMenuList(state, payload = []) {
       state.menuList = payload
+    },
+    // 动态设置权限
+    setRoles(state, payload = []) {
+      resetRouter(); // 为了重新实例化vue-router对象 避免bug
+      state.roles = ['Home', ...payload]
+      setDynamicRouter();
     }
   }
 })
